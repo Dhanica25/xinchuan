@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Attendance</title>
+  <link rel="stylesheet" href="style.css"> <!-- Link to the external CSS -->
+  <img src="logo.png" alt="logo.png" class="header-image" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@6.0.0"></script>
+</head>
+<body>
+  <div class="content">
+    <div class="content-header">
+
+      <!-- Search Bar and Filter Dropdown -->
+      <div style="display: flex; text-align: center;">
+        <input type="text" id="searchEmployee" placeholder="Search" oninput="filterTable()" />
+
+        <select id="filterPosition" onchange="filterTable()">
+          <option value="All">All Positions</option>
+          <option value="Engineer">Engineer</option>
+          <option value="Foreman">Foreman</option>
+          <option value="Labor">Labor</option>
+          <option value="Welder">Welder</option>
+          <option value="Scaffolder">Scaffolder</option>
+        </select>
+        
+        <!-- Date Picker Positioned Between Filter and Action Buttons -->
+      <input type="date" class="date-picker" id="attendanceDate" />
+      </div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate">
+      
+
+<div id="attendanceTable"></div> <!-- This will display the attendance data -->
+
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button class="generate-pdf" id="generateReport" onclick="generateAttendanceReport()">Generate Attendance Report</button>
+        <button class="add" onclick="addEmployee()">Add Employee</button>
+        <button class="edit" onclick="editEmployee()">Edit</button>
+        <button class="remove" onclick="showRemoveConfirmation()">Remove</button>
+        <button class="done-button" id="doneButton" onclick="doneEditing()" style="display: none;">Done</button> 
+        
+        
+
+      </div>
+    </div>
+
+    <!-- Employee Table -->
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Time In</th>
+          <th>Time Out</th>
+          <th>Overtime In</th>
+          <th>Overtime Out</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="employeeTableBody">
+        <!-- Employees will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+<!-- Popup for Remove Confirmation -->
+<div class="popup" id="removePopup">
+  <div class="popup-content">
+    <p>Are you sure you want to remove this employee?</p>
+    <button onclick="removeEmployee()">Yes</button>
+    <button onclick="closePopup()">No</button>
+  </div>
+</div>
+
+
+  <script src="app.js"></script> <!-- Link to the external JavaScript -->
+</body>
+</html>
